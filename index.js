@@ -64,7 +64,7 @@ const getRandomNumber = function (from, to) { // for random number
  * salt.
  */
 function getString(Text, getSalt) { // for generate unique string
-    if(string.length > 12 || string.length <= 0){
+    if(Text.length > 12 || Text.length <= 0){
         throw new Error('Restricted: Error at .match() "string" should be greater than 0 and less than 13.' )
     }
     if (Text === undefined) {
@@ -88,10 +88,8 @@ function getString(Text, getSalt) { // for generate unique string
 function inspect(string, hash,salt){
     const newsalt = getSalt(salt);
     const newStr =  getString(string,newsalt);
-    console.log({string,newStr,hash,salt})
     for (let i = 1; i < string.length*3; i+=3) {
         if(newStr.charAt(i) != hash.charAt(i)){
-            console.log(newStr.charAt(i) ,hash.charAt(i),i)
             return false;
         }
     }
