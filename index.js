@@ -1,7 +1,7 @@
 const data = function () {
     const characters = [...Array(26)].map((_, i) => String.fromCharCode(i + 65).toLowerCase());
     const numbers = [...Array(10)].map((_, i) => i.toString());
-    const specialCharacters = '!@#$%^&*';
+    const specialCharacters = '!@#$%^&*[]{}()₹?-+_';
 
     const characterArray = characters.concat(characters.map(c => c.toUpperCase()), numbers, specialCharacters.split(''));
     return characterArray;
@@ -28,9 +28,6 @@ const concat = function (random, text, hashed) { // for a unique pass
     return s;
 }
 const getRandomNumber = function (from, to) { // for random number
-    if (from >= to) {
-        throw new Error('Invalid range: "from" must be less than "to"');
-    }
     const randomNumber = Math.floor(Math.random() * (to - from + 1)) + from;
     return randomNumber;
 }
@@ -45,6 +42,12 @@ const getRandomNumber = function (from, to) { // for random number
   function getSalt(Number) {  // for generate salt string
     let S = '';
     const Data = data();
+    if (typeof(Number) !== 'number'){
+        throw new Error(`Invalid data type: expected agrueement to be number, got ${typeof(Number)}`);
+    }
+    else if (0 >= Number) {
+        throw new Error('Invalid range: arguement must be more than 0');
+    }
     for (let i = 0; i < Number; i++) {
         const num = getRandomNumber(0, Data.length - 1);
         S = S + Data[num];
@@ -64,14 +67,17 @@ const getRandomNumber = function (from, to) { // for random number
  * salt.
  */
 function getString(Text, getSalt) { // for generate unique string
-    if(string.length > 12 || string.length <= 0){
-        throw new Error('Restricted: Error at .match() "string" should be greater than 0 and less than 13.' )
-    }
     if (Text === undefined) {
-        throw new Error('Invalid Text : Undefined "Text" should be a string');
-    }
-    if (getSalt === undefined) {
         throw new Error('getSalt should be a salt!');
+    }
+    else if (getSalt === undefined) {
+        throw new Error('getSalt should be a salt!');
+    }
+    else if (typeof(Text) !== 'string') {
+        throw new Error(`Invalid data type: expected agrueement to be string, got ${typeof(Text)}`);
+    }
+    else if(Text.length > 12 || Text.length <= 0){
+        throw new Error('Restricted: Error at .match() "string" should be greater than 0 and less than 13.' )
     }
     const length = Text.length;
     const saltLength = getSalt.length;
@@ -88,10 +94,8 @@ function getString(Text, getSalt) { // for generate unique string
 function inspect(string, hash,salt){
     const newsalt = getSalt(salt);
     const newStr =  getString(string,newsalt);
-    console.log({string,newStr,hash,salt})
     for (let i = 1; i < string.length*3; i+=3) {
         if(newStr.charAt(i) != hash.charAt(i)){
-            console.log(newStr.charAt(i) ,hash.charAt(i),i)
             return false;
         }
     }
@@ -102,7 +106,8 @@ function inspect(string, hash,salt){
  * @param  string  - The `string` parameter is the original string.
  * @param  salt - The number of salt used to encrypt text.
  * @param  hash  - The `hash` parameter is the string to be compared with.
- * @returns the function `match` returns the boolean expression `true` or `false`. If the both string are matched it will return `true` else `false`.
+ * @returns the function `match` returns the boolean expression `true` or `false`.
+ * If the both string are matched it will return `true` else `false`.
  */
 function match(string, hash,salt) {
     if(string.length > 12 || string.length <= 0){

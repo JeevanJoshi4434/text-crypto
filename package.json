@@ -1,6 +1,6 @@
 {
   "name": "text-crypto",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "A module used to encrypt/hash and compare the text.",
   "main": "index.js",
   "scripts": {
@@ -11,5 +11,12 @@
     "url": "git+https://github.com/JeevanJoshi4434/text-crypto.git"
   },
   "author": "Jeevan Joshi",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JeevanJoshi4434/text-crypto/issues"
+  },
+  "homepage": "https://github.com/JeevanJoshi4434/text-crypto#readme",
+  "keywords": [
+    " # text-crypto (npm module)\nText-Crypto is a versatile npm module designed to provide robust encryption, hashing, and text comparison functionalities with the added security of salts. This powerful library allows developers to safeguard sensitive data by transforming plain text into encrypted or hashed formats, making it significantly more challenging for unauthorized individuals to access or reverse-engineer the original information.\n Key Features: \n     1. Encryption and Hashing: Text-Crypto offers both encryption and hashing capabilities. Encryption is used to convert plain text into ciphertext, which can later be decrypted back to its original form using a secret key. Hashing, on the other hand, creates a fixed-size string of characters from the input, making it ideal for storing passwords or generating unique identifiers.    \n2. Salting for Enhanced Security: Salts are random data added to the text before hashing or encryption, providing an additional layer of security against common attacks like rainbow tables or dictionary attacks. By utilizing salts, developers can ensure that even identical pieces of text result in different encrypted or hashed outputs.  \n3. Secure Text Comparison: Text-Crypto supports secure comparison of encrypted or hashed text. Instead of directly comparing the encrypted or hashed values, this module employs a secure comparison algorithm that mitigates potential timing attacks, providing a safer and more reliable way to check if two pieces of text match.    \n4. Customizable Options: The module allows developers to customize various aspects of the encryption or hashing process, such as encryption algorithms, hashing algorithms, salt lengths, and more. This flexibility ensures compatibility with specific security requirements and coding preferences.    \nSample Usage:     \n```javascript    \nconst TextCrypto = require('text-crypto');\n// Example for Hashing with salt    \nconst textToEncrypt = 'SensitiveData123';    \nconst salt = 10;    \nconst Salt = TextCrypto.getSalt(salt);    \nconst encryptedText = TextCrypto.getString(textToEncrypt, Salt);\n// Example for Comparing String with encryptedText\nconst isMatch = TextCrypto.match(textToEncrypt, encryptedText, salt);\nconsole.log('Hashed Text:', encryptedText);\nconsole.log('Is Match:', isMatch);```    \nIn summary, Text-Crypto is a reliable npm module that facilitates easy and secure encryption, hashing, and comparison of text, offering developers a valuable tool to protect sensitive data in their applications. Its support for salts ensures a higher level of security against various attacks, making it an essential component in building robust and secure software systems."
+  ]
 }
